@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- notty messages cdn links -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+        {% block content %}
+
+        {% endblock %}
+    {% block scripts %}
+
+    {% endblock %}
+      <script>
+  var msg_levels = { 20: 'info', 25: 'success', 30: 'warning', 40: 'error' };
+
+  {% if messages %}
+    {% for msg in messages %}
+      new Noty({
+          type: msg_levels['{{msg.level}}'],
+          text: '{{msg}}',
+          timeout: 5000,
+          theme: 'metroui'
+      }).show();
+    {% endfor %}
+  {% endif %}
+</script>
+</body>
+</html>

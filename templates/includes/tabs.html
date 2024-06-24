@@ -1,0 +1,9 @@
+{% load static %}
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+    {% for category in categories %}
+    <li class="me-2">
+        <a href="{% url 'category' category.slug %}" class="inline-block px-4 py-3 {% if category.slug == tag.slug %} bg-teal-600 text-white {% else %} border {% endif %} rounded-lg active" aria-current="page">{{category.name}}</a>
+    </li>
+    {% endfor %}
+    
+</ul>

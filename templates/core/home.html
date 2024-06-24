@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+ {% include 'includes/navbar.html' %}
+
+<section class="mx-auto w-[95%] md:w-[85%] lg:w-[72%]  my-[5rem] ">
+    <div class="py-5">
+        {% include 'includes/tabs.html' %}
+
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[1rem]">
+      {% for video in videos %}
+        <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+  <img
+    alt=""
+    src="{{video.thumbnail.url}}"
+    class="h-56 w-full object-cover"
+  />
+
+  <div class="bg-white p-4 sm:p-6">
+    <time datetime="2022-10-10" class="block text-xs text-gray-500"> {{video.pub_date|timesince}} </time>
+    <div class="flex items-center gap-1">
+      <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
+        <img src="{{ video.author.profile.avatar }}" class="w-full" alt="{{video.author.username}}">
+      </div>
+      <a class="text-sm" href="{% url 'userprofile' video.author.username %}"> {{video.author.profile.name}}</a>
+    </div>
+    <a href="#">
+      <h3 class="mt-0.5 text-lg text-gray-900">{{video.title}}</h3>
+    </a>
+
+    <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus
+      pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem,
+      mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque
+      dignissimos. Molestias explicabo corporis voluptatem?
+    </p>
+    <div class="flex gap-2 items-center">
+      {% for tag in video.tags.all %}
+      <a class="py-1 px-2 bg-teal-700 texf-white hover:bg-teal-600" href="{% url 'category' tag.id %}">{{tag.name}}</a>
+      {% endfor %}
+
+    </div>
+    <a href="{% url 'video-detail' video.pk %}" class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
+      View detail
+
+      <span aria-hidden="true" class="block transition-all group-hover:ms-0.5 rtl:rotate-180">
+        &rarr;
+      </span>
+    </a>
+  </div>
+</article>
+{% empty %}
+<h1 class="text-center py-6 font-semibold text-gray-700">No such Videos for this Category</h1>
+{% endfor %}
+       
+  
+    </div>
+</section>
+{% include 'includes/footer.html' %}
+
+{% endblock %}

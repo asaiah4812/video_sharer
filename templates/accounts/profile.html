@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile page {% endblock %}
+{% block content %}
+ {% include 'includes/navbar.html' %}
+    <section class="sm:w-full md:w-[80%] lg:w-[60%] mx-auto flex flex-col gap-4 px-2 mt-[5rem]">
+      <div class="flex flex-col items-center border mt-6 py-5">
+        <img class="w-[150px] h-[150px] object-cover rounded-full" src="{{profile.avatar}}" alt="{{profile.user.username}}" />
+        <span class="text-slate-400">@{{profile.user.username}}</span>
+        <h1 class="text-2xl font-medium">{{profile.user.realname}}</h1>
+        <span class="text-slate-600"
+          ><i class="fa-solid fa-location-dot"></i> {{profile.location}}</span
+        >
+      </div>
+      <div class="text-center">
+        <p>
+          {{profile.bio}}
+        </p>
+      </div>
+      <a class="py-2 px-4 text-white bg-teal-700 mt-5 rounded-md self-center" href="{% url 'profile-edit' %}">Edit profile</a> 
+      <div>
+            <h1 class="text-3xl font-medium text-center">Your Popular Services</h1>
+          <div class="grid lg:grid-cols-3 gap-4 mt-3 md:grid-cols-2">
+            {% if videos %}
+            {% for video in videos %}
+             <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+  <img
+    alt=""
+    src="{{video.thumbnail.url}}"
+    class="h-56 w-full object-cover"
+  />
+
+  <div class="bg-white p-4 sm:p-6">
+    <time datetime="2022-10-10" class="block text-xs text-gray-500"> {{video.pub_date|timesince}} </time>
+    <div class="flex items-center gap-1">
+      <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
+        <img src="{{ video.author.profile.avatar }}" class="w-full" alt="{{video.author.username}}">
+      </div>
+      <a class="text-sm" href="{% url 'userprofile' video.author.username %}"> {{video.author.profile.name}}</a>
+    </div>
+    <a href="#">
+      <h3 class="mt-0.5 text-lg text-gray-900">{{video.title}}</h3>
+    </a>
+
+    <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae dolores, possimus
+      pariatur animi temporibus nesciunt praesentium dolore sed nulla ipsum eveniet corporis quidem,
+      mollitia itaque minus soluta, voluptates neque explicabo tempora nisi culpa eius atque
+      dignissimos. Molestias explicabo corporis voluptatem?
+    </p>
+    <div class="flex gap-2 items-center">
+      {% for tag in video.tags.all %}
+      <a class="py-1 px-2 bg-teal-700 texf-white hover:bg-teal-600" href="{% url 'category' tag.id %}">{{tag.name}}</a>
+      {% endfor %}
+
+    </div>
+    <a href="{% url 'video-detail' video.pk %}" class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600">
+      View detail
+
+      <span aria-hidden="true" class="block transition-all group-hover:ms-0.5 rtl:rotate-180">
+        &rarr;
+      </span>
+    </a>
+  </div>
+</article>
+            {% endfor %}
+            {% endif %}
+          </div>
+      </div> 
+    </section>
+ {% endblock %}
