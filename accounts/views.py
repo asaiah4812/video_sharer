@@ -54,6 +54,7 @@ def profile_view(request, username=None):
         videos = profile.user.videos.all()
     else:
         profile = request.user.profile
+        videos = profile.user.videos.all()
     return render(request, 'accounts/profile.html', {'profile':profile, "videos":videos})
 
 @login_required
