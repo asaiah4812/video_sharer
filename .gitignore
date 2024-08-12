@@ -104,4 +104,3 @@ dmypy.json
 
 # Editor
 .vscode/
-db.sqlite3/

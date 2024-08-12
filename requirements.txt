@@ -1,11 +1,7 @@
 asgiref==3.8.1
 certifi==2024.7.4
 charset-normalizer==3.3.2
-cloudinary==1.41.0
-crispy-bootstrap4==2024.1
 Django==5.0.6
-django-cleanup==8.1.0
-django-crispy-forms==2.2
 idna==3.7
 pillow==10.3.0
 psycopg2==2.9.9
